@@ -81,7 +81,7 @@ const Step = props => {
 	};
 	return (
 		<div style={{width: '80%', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-			<div style={{height: 50}}>
+			<div style={{height: '100%'}}>
 				{desc}
 			</div>
 			<div style={{display: 'flex', alignContent: 'space-between'}}>
