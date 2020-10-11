@@ -6,8 +6,8 @@ import {useStopwatch} from 'react-timer-hook';
 const mainStyle = {
 	background: 'black',
 	color: 'white',
-	width: '40%',
-	height: '40%',
+	width: '50%',
+	height: '50%',
 	display: 'grid',
 	placeItems: 'center',
 };
