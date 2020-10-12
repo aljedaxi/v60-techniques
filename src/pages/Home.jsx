@@ -17,6 +17,7 @@ export const ButtonA = props => {
 		</div>
 	);
 };
+
 export const Home = props => {
 	const vid = "https://www.youtube.com/watch?v=AI4ynXzkSQo";
 	return (

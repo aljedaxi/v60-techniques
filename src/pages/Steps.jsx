@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom';
 import querySearch from 'stringquery';
 import {stepDescriptions} from '../v60';
+import {Layout} from '../App';
 
 const getStep = n => water => roast => {
 	const maybeDesc = stepDescriptions[n - 1];
@@ -24,7 +25,7 @@ const useSearch = _ => {
 		step = '1', 
 		roast = 'medium'
 	} = searchData;
-	return {water: parseInt(water), step: parseInt(step), roast};
+	return {water: parseInt(water), step: parseInt(step) || 1, roast};
 };
 
 const buttonStyle = {color: 'black', textDecoration: 'none', background: 'white', width: 'max-content', margin: 10, display: 'grid', placeItems: 'center'};
@@ -40,31 +41,39 @@ export const ButtonLink = props => {
 	);
 };
 
+const containerStyle = {
+	display: 'flex',
+	flexFlow: 'row wrap',
+	alignContent: 'space-evenly',
+	alignItems: 'center',
+	justifyContent: 'space-evenly',
+	width: '100%'
+};
 export const Step = props => {
 	const {seconds, pause, start, isRunning} = useStopwatch();
 	const {step,water,roast} = useSearch();
 	const nextUrl = `/step?step=${step+1}&water=${water}&roast=${roast}`;
+	const lastUrl = `/step?step=${step-1}&water=${water}&roast=${roast}`;
 	const currentDesc = getStep(step)(water)(roast);
 	const handleClickTimer = _ => {
 		if (isRunning) pause();
 		start();
 	};
-	if (!currentDesc) {
-		return <Redirect to='/done'/>;
-	}
+	if (!currentDesc) return <Redirect to='/done'/>;
 	return (
-		<div style={{width: '80%', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-			<div style={{height: '100%'}}>
-				{currentDesc}
-			</div>
-			<div style={{display: 'flex', alignContent: 'space-between'}}>
-				<ButtonLink to={nextUrl}>next</ButtonLink>
-				<div style={buttonStyle}>
-					<Button onClick={handleClickTimer}>
-						{isRunning || seconds ? seconds : 'start timer'}
-					</Button>
+		<Layout next={nextUrl} from={lastUrl}>
+			<div style={containerStyle}>
+				<div style={{width: '60%', height: '100%', display: 'grid', placeItems: 'center'}}>
+					<div style={{maxWidth: '90%'}}>
+						{currentDesc}
+					</div>
+					<div style={buttonStyle}>
+						<Button onClick={handleClickTimer}>
+							{isRunning || seconds ? seconds : 'start timer'}
+						</Button>
+					</div>
 				</div>
 			</div>
-		</div>
+		</Layout>
 	);
 };
