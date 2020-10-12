@@ -1,6 +1,6 @@
 const compose = f => g => x => f(g(x));
 export const waterToCoffee = compose (Math.round) (water => water * 0.06);
-export const coffeeToWater = compose (Math.round) (coffee => coffee * 16.666666666666666666666666);
+export const coffeeToWater = compose (Math.round) (coffe => coffe / 0.06);
 
 export const stepDescriptions = [
 	'get your plastic V60 or Hario drip decanter; your filter paper; your digital scale; spoon; kettle; beans; your water',
@@ -17,7 +17,6 @@ export const stepDescriptions = [
 	'give your brewer a some good swirls until it looks nice and evenly mixed',
 	'let the bloom sit until 30-45 seconds',
 	water => roast => `pour ${water * 0.6}g of water, spiraling from the inside out; you'll want to have this done by the 75 second mark`,
-	'agitate it just a little bit; keep your cone to stay pretty full',
 	water => roast => `over the next 30 seconds, pour slowly to keep the cone full, until you reach ${water}g of water`,
 	water => roast => `once you've hit ${water}g, give the V60 a little stir in one direction, then a little stir in the other`,
 	'allow the V60 to drain, until you feel safe giving it another little swirl',
