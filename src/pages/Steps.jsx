@@ -28,7 +28,17 @@ const useSearch = _ => {
 	return {water: parseInt(water), step: parseInt(step) || 1, roast};
 };
 
+const useSeconds = _ => {
+	const {
+		pause, start, isRunning, 
+		seconds: rawSeconds, minutes
+	} = useStopwatch();
+	const seconds = rawSeconds + (minutes * 60);
+	return {pause, start, isRunning, seconds};
+};
+
 const buttonStyle = {color: 'black', textDecoration: 'none', background: 'white', width: 'max-content', margin: 10, display: 'grid', placeItems: 'center'};
+
 export const ButtonLink = props => {
 	const {to, children} = props;
 	const style = Object.assign({}, buttonStyle, props.style);
@@ -49,8 +59,9 @@ const containerStyle = {
 	justifyContent: 'space-evenly',
 	width: '100%'
 };
+
 export const Step = props => {
-	const {seconds, pause, start, isRunning} = useStopwatch();
+	const {seconds, pause, start, isRunning} = useSeconds();
 	const {step,water,roast} = useSearch();
 	const nextUrl = `/step?step=${step+1}&water=${water}&roast=${roast}`;
 	const lastUrl = `/step?step=${step-1}&water=${water}&roast=${roast}`;
