@@ -22,5 +22,4 @@ export const stepDescriptions = [
 	water => roast => `once you've hit ${water}g, give the V60 a little stir in one direction, then a little stir in the other`,
 	'allow the V60 to drain, until you feel safe giving it another little swirl',
 	'when its fully drained through, you should have a nice even bed of coffee',
-	'is your coffee too acidic? try to fine up your grind\n too bitter? coarsen up a bit',
 ];
