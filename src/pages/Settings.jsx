@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {waterToCoffee, coffeeToWater} from '../v60';
+import {useRatio} from '../hooks';
 import {Button, TextField, InputAdornment, Select, MenuItem} from '@material-ui/core';
 import { Link
 } from 'react-router-dom';
@@ -11,6 +11,7 @@ const InputGrams = props =>
 	/>
 
 export const Rules = props => {
+	const {waterToCoffee, coffeeToWater} = useRatio({water: 100, coffee: 6});
 	const childStyle = {flex: '0 1 150px', margin: 5, display: 'flex', flexDirection: 'column', alignItems: 'center', background: 'white', color: 'black', padding: 10};
 	const parentStyle = {display: 'flex', flexWrap: 'wrap', justifyContent: 'center', width: '100%', height: '90%'};
 	const inputStyle = {width: '100%'};
@@ -28,7 +29,8 @@ export const Rules = props => {
 		} else if (focusedField === 'water') {
 			setCoffee(waterToCoffee(water));
 		}
-	}, [water, coffee])
+		// eslint-disable-next-line
+	}, [water, coffee, waterToCoffee, coffeeToWater])
 
 	const setty = s => e => s(e.target.value);
 

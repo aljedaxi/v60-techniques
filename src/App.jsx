@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import * as React from 'react';
 import {
 	BrowserRouter as Router,
 	Switch,
@@ -10,6 +10,7 @@ import {Home} from './pages/Home';
 import {Rules} from './pages/Settings';
 import {Step} from './pages/Steps';
 import {Done} from './pages/Done';
+import {useOrientation} from './hooks';
 
 const mainStyle = {
 	background: 'black',
@@ -25,21 +26,6 @@ const pageStyle = {
 	placeItems: 'center',
 	height: '100%',
 	width: '100%',
-};
-
-const useOrientation = _ => {
-	const [portrait, setPortrait] = useState(window.innerHeight > window.innerWidth);
-	const landscape = !portrait;
-	useEffect(_ => {
-		const handleResize = _ => setPortrait(window.innerHeight > window.innerWidth);
-		window.addEventListener('resize', handleResize);
-		return _ => {window.addEventListener('resize', handleResize);}
-	}, []);
-	return {
-		isPortrait: portrait,
-		isLandscape: landscape,
-		landscape, portrait
-	};
 };
 
 const Basic = ({children}) =>

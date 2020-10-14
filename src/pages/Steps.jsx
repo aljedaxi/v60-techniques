@@ -1,12 +1,11 @@
 import React from 'react';
-import {useStopwatch} from 'react-timer-hook';
 import {Button} from '@material-ui/core';
 import {
-	useLocation, Link, Redirect
+	Link, Redirect
 } from 'react-router-dom';
-import querySearch from 'stringquery';
 import {stepDescriptions} from '../v60';
 import {Layout} from '../App';
+import {useSeconds, useSearch} from '../hooks';
 
 const getStep = n => water => roast => {
 	const maybeDesc = stepDescriptions[n - 1];
@@ -15,26 +14,6 @@ const getStep = n => water => roast => {
 	} catch {
 		return maybeDesc;
 	}
-}
-
-const useSearch = _ => {
-	const {search} = useLocation();
-	const searchData = querySearch(search);
-	const {
-		water = '300', 
-		step = '1', 
-		roast = 'medium'
-	} = searchData;
-	return {water: parseInt(water), step: parseInt(step) || 1, roast};
-};
-
-const useSeconds = _ => {
-	const {
-		pause, start, isRunning, 
-		seconds: rawSeconds, minutes
-	} = useStopwatch();
-	const seconds = rawSeconds + (minutes * 60);
-	return {pause, start, isRunning, seconds};
 };
 
 const buttonStyle = {color: 'black', textDecoration: 'none', background: 'white', width: 'max-content', margin: 10, display: 'grid', placeItems: 'center'};
