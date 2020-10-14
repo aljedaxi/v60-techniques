@@ -6,7 +6,7 @@ import { Link
 
 const InputGrams = props =>
 	<TextField
-		{...props} type='number' autofocus
+		{...props} type='number'
 		InputProps={{endAdornment: <InputAdornment position='end'>g</InputAdornment>}}
 	/>
 
@@ -24,11 +24,15 @@ export const Rules = props => {
 	const handleBlur = _ => setFocusedField(undefined);
 
 	useEffect(_ => {
-		if (focusedField === 'coffee') {
-			setWater(coffeeToWater(coffee));
-		} else if (focusedField === 'water') {
-			setCoffee(waterToCoffee(water));
+		const field          = focusedField === 'coffee' ? coffee : water;
+		const setter         = focusedField === 'coffee' ? setCoffee : setWater;
+		const oppositeSetter = focusedField === 'coffee' ? setWater : setCoffee;
+		const converter      = focusedField === 'coffee' ? coffeeToWater : waterToCoffee;
+		if (field < 0) {
+			alert('a horse walks up to a barista and says "can i get a coffee with no milk?". the barista says "we\'re all out of no milk, but we have no cream".');
+			setter(field * -1);
 		}
+		oppositeSetter(converter(field));
 		// eslint-disable-next-line
 	}, [water, coffee, waterToCoffee, coffeeToWater])
 
@@ -39,7 +43,7 @@ export const Rules = props => {
 			<div style={childStyle}>
 				water
 				<InputGrams 
-					value={water} onChange={setty(setWater)} 
+					value={water} onChange={setty(setWater)} autoFocus
 					onBlur={handleBlur} onFocus={handleFocus('water')}
 				/>
 			</div>
