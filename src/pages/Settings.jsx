@@ -54,7 +54,7 @@ export const Rules = props => {
 					onBlur={handleBlur} onFocus={handleFocus('coffee')}
 				/>
 				<div style={{height: 20}}/>
-				<Link to={`/step?step=1&water=${water}&roast=${roast}`}>
+				<Link to={`/step?step=1&water=${water || 0}&roast=${roast}`}>
 					<Button tabIndex={-1} disabled={[0, '0'].includes(water)}>done</Button>
 				</Link>
 			</div>

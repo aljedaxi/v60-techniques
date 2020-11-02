@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Button} from '@material-ui/core';
 import {
 	Link, Redirect
@@ -42,6 +42,9 @@ const containerStyle = {
 export const Step = props => {
 	const {seconds, pause, start, isRunning} = useSeconds();
 	const {step,water,roast} = useSearch();
+	const [blooming, setBlooming] = useState(false);
+	const beginBlooming = _ => setBlooming(true);
+	console.log('blooming', blooming);
 	const nextUrl = `/step?step=${step+1}&water=${water}&roast=${roast}`;
 	const lastUrl = `/step?step=${step-1}&water=${water}&roast=${roast}`;
 	const currentDesc = getStep(step)(water)(roast);
@@ -52,10 +55,11 @@ export const Step = props => {
 	if (!currentDesc) return <Redirect to='/done'/>;
 	return (
 		<Layout next={nextUrl} from={lastUrl}>
+			{blooming ? <iframe style={{position: 'fixed', left: 69, top: 69}} src="https://www.youtube.com/embed/IxBQ8Er8DYc" frameBorder="0" allow="autoplay" title='bloom'/> : null}
 			<div style={containerStyle}>
 				<div style={{width: '60%', height: '100%', display: 'grid', placeItems: 'center'}}>
 					<div style={{maxWidth: '90%'}}>
-						{currentDesc}
+						{currentDesc.split(' ').flatMap(s => s === 'bloom' ? [<span onClick={beginBlooming}>bloom</span>, ' '] : [s, ' '])}
 					</div>
 					<div style={buttonStyle}>
 						<Button onClick={handleClickTimer}>
