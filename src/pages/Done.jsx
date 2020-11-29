@@ -1,14 +1,39 @@
 import React from 'react';
 import {ButtonA, ButtonLink} from "../components/Buttons";
 
-const Hoffmann = props => {
+const textStyle = {
+	margin: 10,
+};
+
+const buttonStyle = {
+	display: 'grid', placeItems: 'center'
+};
+
+const Common = props => {
+	const {children, text} = props;
 	return (
 		<div>
-			<div>
-				is your coffee too acidic? try to fine up your grind
-				<br/>
-				too bitter? coarsen up a bit
+			<div style={textStyle}>
+				{text}
 			</div>
+			<div style={buttonStyle}>
+				{children}
+			</div>
+		</div>
+	);
+}
+
+const Hoffmann = props => {
+  return (
+  	<Common
+			text={
+				<div>
+					is your coffee too acidic? try to fine up your grind
+					<br/>
+					too bitter? coarsen up a bit
+				</div>
+			}
+		>
 			<ButtonLink to='/'>
 				restart
 			</ButtonLink>
@@ -18,26 +43,30 @@ const Hoffmann = props => {
 			<ButtonA to='https://www.youtube.com/channel/UCMb0O2CdPBNi-QqPk5T3gsQ'>
 				more hoffmann
 			</ButtonA>
-		</div>
-	);
+
+		</Common>
+	)
 };
 
 const Eldric = props => {
 	return (
-		<div>
-			<div>
-				is your coffee too acidic? try to fine up your grind
-				<br/>
-				too bitter? coarsen up a bit
-			</div>
+		<Common
+			text={
+				<div>
+					is your coffee too acidic? try to fine up your grind
+					<br/>
+					too bitter? coarsen up a bit
+				</div>
+			}
+		>
 			<ButtonLink to='/'>
 				restart
 			</ButtonLink>
 			<ButtonA to='https://github.com/aljedaxi/hoffmann-v60/issues'>
 				suggest improvements
 			</ButtonA>
-		</div>
-	);
+		</Common>
+	)
 };
 
 const pages = {

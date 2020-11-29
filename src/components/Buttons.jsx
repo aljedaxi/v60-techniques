@@ -18,12 +18,12 @@ const Common = Squish => props => {
   const style = Object.assign({}, buttonStyle, props.style);
   return (
     <div style={style}>
-      <Squish href={to} style={{textDecoration: 'none'}}>
+      <Squish to={to} href={to} style={{textDecoration: 'none'}}>
         <Button style={{fontFamily: 'Lotion'}}> {children} </Button>
       </Squish>
     </div>
   );
-}
+};
 
 export const ButtonA = Common ('a');
 

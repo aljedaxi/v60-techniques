@@ -4,6 +4,11 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+document.title = {
+	Eldric: 'epic app, epic technique, epic Eldric',
+	Hoffmann: 'ultimate app, ultimate technique, ultimate Hoffmann',
+}[process.env.REACT_APP_TECHNIQUE] ?? 'v60 time';
+
 ReactDOM.render(
   <React.StrictMode>
     <App />

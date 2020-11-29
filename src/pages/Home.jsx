@@ -3,7 +3,7 @@ import {getUrls} from './Steps';
 import {ButtonA, ButtonLink} from "../components/Buttons";
 
 const containerStyle = {
-	display: 'flex', flexDirection: 'column', alignItems: 'center'
+	display: 'grid', placeItems: 'center'
 };
 
 export const Hoffmann = props => {
@@ -26,7 +26,7 @@ export const Eldric = props => {
 			<ButtonLink to='/step?step=1'>begin</ButtonLink>
 		</div>
 	)
-}
+};
 
 const homes = {
 	Hoffmann, Eldric

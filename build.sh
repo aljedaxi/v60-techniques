@@ -1,5 +1,6 @@
 technique=$1
 echo "REACT_APP_TECHNIQUE=$technique" > .env.production
+cp $technique.ico public/favicon.ico
 yarn build
 pushd build
 case $technique in
