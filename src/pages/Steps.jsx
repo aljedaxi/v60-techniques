@@ -5,8 +5,8 @@ import {stepVarieties} from '../v60';
 import {Layout} from '../App';
 import {useSeconds, useSearch} from '../hooks';
 
-const getStep = variety => n => props => {
-	const maybeDesc = stepVarieties[variety][n - 1];
+const getStep = n => props => {
+	const maybeDesc = stepVarieties[process.env.REACT_APP_TECHNIQUE][n - 1];
 	try {
 		return maybeDesc (props);
 	} catch {
@@ -37,9 +37,7 @@ const containerStyle = {
 	width: '100%'
 };
 
-const mode = 'hoffmann';
-
-const getUrls = step => props => {
+export const getUrls = step => props => {
 	const queryString = Object.entries(props).reduce((acc, [k,v]) => `${acc}&${k}=${v}`, '');
 	return {
 		nextUrl: `/step?step=${step+1}${queryString}`,
@@ -51,9 +49,9 @@ export const Step = props => {
 	const {seconds, pause, start, isRunning} = useSeconds();
 	const {step, ...rest} = useSearch();
 	const [blooming, setBlooming] = useState(false);
-	const {nextUrl, lastUrl} = getUrls(step)(rest);
+	const {nextUrl, lastUrl} = getUrls (step) (rest);
 	const beginBlooming = _ => setBlooming(true);
-	const currentDesc = getStep(mode)(step)(rest);
+	const currentDesc = getStep (step) (rest);
 	const handleClickTimer = _ => {
 		if (isRunning) pause();
 		start();
