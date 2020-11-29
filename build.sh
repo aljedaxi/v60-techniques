@@ -7,5 +7,5 @@ case $technique in
 	"Eldric") echo "eldric-v60.surge.sh" > './CNAME';;
 	"Hoffmann") echo "hoffmann-v60.surge.sh" > './CNAME';;
 esac
-surge
+echo "\n" | surge
 popd
