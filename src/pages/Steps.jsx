@@ -21,7 +21,7 @@ export const ButtonLink = props => {
 	const style = Object.assign({}, buttonStyle, props.style);
 	return (
 		<div style={style}>
-			<Link to={to}>
+			<Link style={{textDecoration: 'none'}} to={to}>
 				<Button> {children} </Button>
 			</Link>
 		</div>

@@ -35,7 +35,7 @@ const Basic = ({children}) =>
 			</main>
 		</div>
 
-		const urlStyle =  {fontSize: 'xx-large', color: 'black', textDecoration: 'none',}
+const urlStyle =  {fontSize: 'xx-large', color: 'black', textDecoration: 'none',}
 const portraitArrows = {
 	display: 'flex',
 	height: '100%',
