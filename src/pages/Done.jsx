@@ -1,6 +1,5 @@
 import React from 'react';
-import {ButtonA} from './Home';
-import {ButtonLink} from './Steps';
+import {ButtonA, ButtonLink} from "../components/Buttons";
 
 const Hoffmann = props => {
 	return (

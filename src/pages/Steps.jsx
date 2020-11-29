@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
 import {Button} from '@material-ui/core';
-import {Link, Redirect} from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 import {stepVarieties} from '../v60';
 import {Layout} from '../App';
-import {useSeconds, useSearch} from '../hooks';
+import {useSearch, useSeconds} from '../hooks';
+import {buttonStyle} from "../components/Buttons";
 
 const getStep = n => props => {
 	const maybeDesc = stepVarieties[process.env.REACT_APP_TECHNIQUE][n - 1];
@@ -12,20 +13,6 @@ const getStep = n => props => {
 	} catch {
 		return maybeDesc;
 	}
-};
-
-const buttonStyle = {color: 'black', textDecoration: 'none', background: 'white', width: 'max-content', margin: 10, display: 'grid', placeItems: 'center'};
-
-export const ButtonLink = props => {
-	const {to, children} = props;
-	const style = Object.assign({}, buttonStyle, props.style);
-	return (
-		<div style={style}>
-			<Link style={{textDecoration: 'none'}} to={to}>
-				<Button> {children} </Button>
-			</Link>
-		</div>
-	);
 };
 
 const containerStyle = {
