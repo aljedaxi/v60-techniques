@@ -3,12 +3,12 @@ import {Button} from '@material-ui/core';
 import {
 	Link, Redirect
 } from 'react-router-dom';
-import {stepDescriptions} from '../v60';
+import {stepVarieties} from '../v60';
 import {Layout} from '../App';
 import {useSeconds, useSearch} from '../hooks';
 
-const getStep = n => water => roast => {
-	const maybeDesc = stepDescriptions[n - 1];
+const getStep = variety => n => water => roast => {
+	const maybeDesc = stepVarieties[variety][n - 1];
 	try {
 		return maybeDesc (water) (roast);
 	} catch {
@@ -39,15 +39,16 @@ const containerStyle = {
 	width: '100%'
 };
 
+const mode = 'hoffmann';
+
 export const Step = props => {
 	const {seconds, pause, start, isRunning} = useSeconds();
 	const {step,water,roast} = useSearch();
 	const [blooming, setBlooming] = useState(false);
 	const beginBlooming = _ => setBlooming(true);
-	console.log('blooming', blooming);
 	const nextUrl = `/step?step=${step+1}&water=${water}&roast=${roast}`;
 	const lastUrl = `/step?step=${step-1}&water=${water}&roast=${roast}`;
-	const currentDesc = getStep(step)(water)(roast);
+	const currentDesc = getStep(mode)(step)(water)(roast);
 	const handleClickTimer = _ => {
 		if (isRunning) pause();
 		start();

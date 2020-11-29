@@ -2,7 +2,7 @@ const compose = f => g => x => f(g(x));
 export const waterToCoffee = compose (Math.round) (water => water * 0.06);
 export const coffeeToWater = compose (Math.round) (coffe => coffe / 0.06);
 
-export const stepDescriptions = [
+const hoffmann = [
 	'get your plastic V60 or Hario drip decanter; your filter paper; your digital scale; spoon; kettle; beans; your water',
 	water => roast => `measure out ${waterToCoffee(water)}g of coffee`,
 	'grind your coffee on the finer end of medium',
@@ -22,3 +22,22 @@ export const stepDescriptions = [
 	'allow the V60 to drain, until you feel safe giving it another little swirl',
 	'when its fully drained through, you should have a nice even bed of coffee',
 ];
+
+const eldrich = [
+	'get your plastic V60, 01 Size filter paper, filtered water, coffee, 2 spoons & 2 vessels (use the smaller first).',
+	'grind 23 grams of coffee around medium.',
+	'rinse your filter paper',
+	'add coffee to the cone; tap it a few times to settle the ground; dig a hole in the center',
+	'heat your water to 94°c',
+	'pour 60g of water into the hole, then spiraling outwards', //1/3 of total water
+	'gently push the grounds on the edge into the middle with a spoon',
+	'once the water drains, swap out the vessels',
+	'pour 100g of water',
+	'using 2 spoons, scoop off the foam',
+	'spiral in another 70g of water',
+	'once drained, add water to taste',
+	'add some of the first extraction to the second, to taste (around 5.5g)'
+];
+
+export const stepVarieties = { hoffmann, eldrich };
+
