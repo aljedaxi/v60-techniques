@@ -32,17 +32,29 @@ export const getUrls = step => props => {
 	}
 };
 
-export const Step = props => {
+const showTimer = process.env.REACT_APP_TECHNIQUE !== 'Eldric';
+
+const Timer = props => {
 	const {seconds, pause, start, isRunning} = useSeconds();
+	const handleClickTimer = _ => {
+		if (isRunning) pause();
+		start();
+	};
+	return (
+		<div style={buttonStyle}>
+			<Button onClick={handleClickTimer}>
+				{isRunning || seconds ? seconds : 'start timer'}
+			</Button>
+		</div>
+	);
+};
+
+export const Step = props => {
 	const {step, ...rest} = useSearch();
 	const [blooming, setBlooming] = useState(false);
 	const {nextUrl, lastUrl} = getUrls (step) (rest);
 	const beginBlooming = _ => setBlooming(true);
 	const currentDesc = getStep (step) (rest);
-	const handleClickTimer = _ => {
-		if (isRunning) pause();
-		start();
-	};
 	if (!currentDesc) return <Redirect to='/done'/>;
 	return (
 		<Layout next={nextUrl} from={lastUrl}>
@@ -52,12 +64,8 @@ export const Step = props => {
 					<div style={{maxWidth: '90%'}}>
 						{currentDesc.split(' ').flatMap(s => s === 'bloom' ? [<span onClick={beginBlooming}>bloom</span>, ' '] : [s, ' '])}
 					</div>
-					<div style={buttonStyle}>
-						<Button onClick={handleClickTimer}>
-							{isRunning || seconds ? seconds : 'start timer'}
-						</Button>
-					</div>
 				</div>
+				{showTimer && <Timer/>}
 			</div>
 		</Layout>
 	);
