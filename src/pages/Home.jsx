@@ -1,6 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {getUrls} from './Steps';
-import {ButtonA, ButtonLink} from "../components/Buttons";
+import {useRatio} from '../hooks';
+import {ButtonA, ButtonLink, buttonStyle} from "../components/Buttons";
+import {InputGrams} from './Settings';
 
 const containerStyle = {
 	display: 'grid', placeItems: 'center'
@@ -20,10 +22,20 @@ export const Hoffmann = props => {
 	);
 };
 
+const setty = s => e => s(e.target.value);
 export const Eldric = props => {
+	const {coffeeToWater} = useRatio({water: 11, coffee: 1});
+	const [coffee, setCoffee] = useState(23);
+	const style = Object.assign({}, buttonStyle, {display: 'flex', flexDirection: 'row', padding: 10}, );
+	const {nextUrl} = getUrls (0) ({coffee, water: coffeeToWater(coffee)});
 	return (
 		<div>
-			<ButtonLink to='/step?step=1'>begin</ButtonLink>
+			<div style={style}>
+				using&nbsp;
+				<InputGrams style={{width: '3.5rem', fontFamily: 'Lotion'}} onChange={setty(setCoffee)} value={coffee}/>
+				&nbsp;of coffee
+			</div>
+			<ButtonLink to={nextUrl}>begin</ButtonLink>
 		</div>
 	)
 };

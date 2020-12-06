@@ -53,9 +53,7 @@ const Eldric = props => {
 		<Common
 			text={
 				<div>
-					is your coffee too acidic? try to fine up your grind
-					<br/>
-					too bitter? coarsen up a bit
+					you'll want to adjust your grind size such that the total brew time is about 2:30-3:30
 				</div>
 			}
 		>

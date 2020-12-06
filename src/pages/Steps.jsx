@@ -8,11 +8,7 @@ import {buttonStyle} from "../components/Buttons";
 
 const getStep = n => props => {
 	const maybeDesc = stepVarieties[process.env.REACT_APP_TECHNIQUE][n - 1];
-	try {
-		return maybeDesc (props);
-	} catch {
-		return maybeDesc;
-	}
+	return typeof maybeDesc === 'function' ? maybeDesc (props) : maybeDesc;
 };
 
 const containerStyle = {
@@ -23,10 +19,11 @@ const containerStyle = {
 };
 
 export const getUrls = step => props => {
+	const stepN = parseInt(step);
 	const queryString = Object.entries(props).reduce((acc, [k,v]) => `${acc}&${k}=${v}`, '');
 	return {
-		nextUrl: `/step?step=${step+1}${queryString}`,
-		lastUrl: `/step?step=${step-1}${queryString}`,
+		nextUrl: `/step?step=${stepN+1}${queryString}`,
+		lastUrl: `/step?step=${stepN-1}${queryString}`,
 	}
 };
 

@@ -33,15 +33,12 @@ export const useOrientation = _ => {
 	};
 };
 
+const parseInts = x => parseInt(x) || x;
+
 export const useSearch = _ => {
 	const {search} = useLocation();
 	const searchData = querySearch(search);
-	const {
-		water = '300', 
-		step = '1', 
-		roast = 'medium'
-	} = searchData;
-	return {water: parseInt(water), step: parseInt(step) || 1, roast};
+	return Object.fromEntries(Object.entries(searchData).map(parseInts));
 };
 
 export const useSeconds = _ => {

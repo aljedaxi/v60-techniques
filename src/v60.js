@@ -1,6 +1,7 @@
 const compose = f => g => x => f(g(x));
 export const waterToCoffee = compose (Math.round) (water => water * 0.06);
 export const coffeeToWater = compose (Math.round) (coffe => coffe / 0.06);
+const ast = m => compose (Math.round) (n => m * n);
 
 const Hoffmann = [
 	'get your plastic V60 or Hario drip decanter; your filter paper; your digital scale; spoon; kettle; beans; your water',
@@ -25,16 +26,16 @@ const Hoffmann = [
 
 const Eldric = [
 	'get your plastic V60, 01 Size filter paper, filtered water, coffee, 2 spoons & 2 vessels (use the smaller first).',
-	'grind 23 grams of coffee around medium.',
+	({coffee}) => `grind ${coffee} grams of coffee around medium.`,
 	'rinse your filter paper',
 	'add coffee to the cone; tap it a few times to settle the ground; dig a hole in the center',
 	'heat your water to 94°c',
-	'pour 60g of water into the hole, then spiraling outwards', //1/3 of total water
+	({coffee}) => `pour ${ast (3) (coffee)}g of water into the hole, then spiraling outwards`, //1/3 of total water
 	'gently push the grounds on the edge into the middle with a spoon',
 	'once the water drains, swap out the vessels',
-	'pour 100g of water',
+	({coffee}) => `pour ${ast (4.3) (coffee)}g of water`,
 	'using 2 spoons, scoop off the foam',
-	'spiral in another 70g of water',
+	({coffee}) => `spiral in another ${ast (3.7) (coffee)}g of water`,
 	'once drained, add water to taste',
 	'add some of the first extraction to the second, to taste (around 5.5g)'
 ];

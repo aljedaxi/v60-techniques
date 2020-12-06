@@ -4,10 +4,17 @@ import {Button, TextField, InputAdornment, Select, MenuItem} from '@material-ui/
 import { Link
 } from 'react-router-dom';
 
-const InputGrams = props =>
+export const InputGrams = props =>
 	<TextField
 		{...props} type='number'
-		InputProps={{endAdornment: <InputAdornment position='end'>g</InputAdornment>}}
+		InputProps={{
+			style: {fontFamily: 'Lotion'},
+			endAdornment: <InputAdornment position='end'>
+				<span style={{fontFamily: 'Lotion'}}>
+					g
+				</span>
+			</InputAdornment>
+		}}
 	/>
 
 export const Rules = props => {
