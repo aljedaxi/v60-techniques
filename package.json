@@ -1,10 +1,9 @@
 {
   "name": "v60",
   "version": "0.1.0",
-	"license": "GPL-3.0-or-later",
+  "license": "GPL-3.0-or-later",
   "private": true,
   "dependencies": {
-    "@material-ui/core": "^4.11.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -18,7 +17,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-		"build-all": "./build.sh all",
+    "build-all": "./build.sh all",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

@@ -7,7 +7,6 @@ import {
 } from 'react-router-dom';
 import './App.css';
 import {Home} from './pages/Home';
-import {Rules} from './pages/Settings';
 import {Step} from './pages/Steps';
 import {Done} from './pages/Done';
 import {useOrientation} from './hooks';
@@ -73,11 +72,6 @@ function App() {
   return (
 		<Router>
 			<Switch>
-				<Route path='/settings'>
-					<Layout>
-						<Rules />
-					</Layout>
-				</Route>
 				<Route path='/step'>
 					<Step/>
 				</Route>

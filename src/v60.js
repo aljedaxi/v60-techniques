@@ -17,9 +17,9 @@ const Hoffmann = [
 	({water}) => `start your timer, then pour ${waterToCoffee(water) * 2}g of water over the coffee, evenly saturating all the grounds`,
 	'give your brewer a some good swirls until it looks nice and evenly mixed',
 	'let the bloom sit until 30-45 seconds',
-	({water}) => `pour ${(waterToCoffee(water) * 2) + (water * 0.6)}g of water, spiraling from the inside out; you'll want to have this done by the 75 second mark`,
-	({water}) => `over the next 30 seconds, pour slowly to keep the cone full, until you reach ${water}g of water`,
-	({water}) => `once you've hit ${water}g, give the V60 a little stir in one direction, then a little stir in the other`,
+	({water}) => `pour until you hit ${(water * 0.6)}g, spiraling from the inside out; you'll want to have this done by the 75 second mark`,
+	({water}) => `pour slowly to keep the cone full, until you reach ${water}g of water and 105 seconds`,
+	({water}) => `once you've hit ${water}g, give the V60 a little stir clockwise, then a little stir counterclockwise`,
 	'allow the V60 to drain, until you feel safe giving it another little swirl',
 	'when its fully drained through, you should have a nice even bed of coffee',
 ];

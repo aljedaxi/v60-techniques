@@ -1,10 +1,9 @@
 import React, {useState} from 'react';
-import {Button} from '@material-ui/core';
 import {Redirect} from 'react-router-dom';
 import {stepVarieties} from '../v60';
 import {Layout} from '../App';
 import {useSearch, useSeconds} from '../hooks';
-import {buttonStyle, invertedButtonStyle} from '../components/Buttons';
+import {buttonStyle, invertedButtonStyle, Button} from '../components/Buttons';
 import {compose, even} from 'sanctuary';
 
 const getStep = n => props => {
@@ -31,7 +30,7 @@ export const getUrls = step => props => {
 const showTimer = process.env.REACT_APP_TECHNIQUE !== 'Eldric';
 
 const shouldAlert = alertAt => current =>
-	(alertAt.step === current.step) && (alertAt.seconds < current.seconds);
+	(alertAt?.step === current.step) && (alertAt?.seconds < current.seconds);
 
 const replace = what => replacement => s => s.replace(what, replacement);
 const parseUrlJson = compose (JSON.parse) (replace (/%22/g) ('"'));
@@ -40,26 +39,19 @@ const Timer = props => {
 	const {alertAt, step} = useSearch();
 	const alertData = alertAt ? parseUrlJson(alertAt) : undefined;
 	const {seconds, pause, start, isRunning, rawSeconds, minutes} = useSeconds();
-	const show =
+	const time =
 		(alertData?.seconds > 60 && minutes) ? `${minutes}:${rawSeconds}` : seconds;
-	const alerting = 
-		alertData ? shouldAlert (alertData) ({step: parseInt(step), seconds}) : false;
+	const alerting = shouldAlert (alertData) ({step: parseInt(step), seconds});
 	const handleClickTimer = isRunning ? pause : start;
-	const text = alerting ? 'times up!'
-		: (isRunning || seconds) ? show 
-		: 'start timer'
-	const style = {
-		padding: 10,
-		fontSize: '1em',
-		textTransform: 'uppercase',
-		borderStyle: 'none',
-		width: '10em',
-		...(alerting && even(seconds) ? invertedButtonStyle : buttonStyle),
-	};
+	const text = 
+		  alerting               ? 'times up!'
+		: (isRunning || seconds) ? time 
+		: /*        else        */ 'start timer'
+	const style = alerting && even(seconds) ? {color: 'white', background: 'black'} : {};
 	return (
-		<button style={style} onClick={handleClickTimer} >
+		<Button style={style} onClick={handleClickTimer} >
 			{text}
-		</button>
+		</Button>
 	);
 };
 
