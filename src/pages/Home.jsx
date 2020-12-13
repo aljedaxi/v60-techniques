@@ -44,7 +44,10 @@ const FrenchPress = props => {
 	const {coffeeToWater} = useRatio({water: 500, coffee: 30});
 	const [coffee, setCoffee] = useState(30);
 	const style = Object.assign({}, buttonStyle, {display: 'flex', flexDirection: 'row', padding: 10}, );
-	const {nextUrl} = getUrls (0) ({coffee, water: coffeeToWater(coffee)});
+	const {nextUrl} = getUrls (0) ({
+		coffee, water: coffeeToWater(coffee), 
+		alertAt: JSON.stringify({seconds: 60 * 4, step: 4})
+	});
 	return (
 		<div>
 			<div style={style}>

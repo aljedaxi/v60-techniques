@@ -47,5 +47,5 @@ export const useSeconds = _ => {
 		seconds: rawSeconds, minutes
 	} = useStopwatch();
 	const seconds = rawSeconds + (minutes * 60);
-	return {pause, start, isRunning, seconds};
+	return {pause, start, isRunning, seconds, rawSeconds, minutes};
 };

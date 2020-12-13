@@ -2,15 +2,25 @@ import {Button} from "@material-ui/core";
 import React from "react";
 import {Link} from "react-router-dom";
 
-export const buttonStyle = {
-  color: 'black',
-  textDecoration: 'none',
-  fontFamily: 'Lotion',
-  background: 'white',
+const commonStyle = {
   width: 'max-content',
   margin: 10,
   display: 'grid',
-  placeItems: 'center'
+  placeItems: 'center',
+  textDecoration: 'none',
+  fontFamily: 'Lotion',
+};
+
+export const invertedButtonStyle = {
+  color: 'white',
+  background: 'black',
+	...commonStyle,
+};
+
+export const buttonStyle = {
+  color: 'black',
+  background: 'white',
+	...commonStyle,
 };
 
 const Common = Squish => props => {

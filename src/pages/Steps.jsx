@@ -4,7 +4,8 @@ import {Redirect} from 'react-router-dom';
 import {stepVarieties} from '../v60';
 import {Layout} from '../App';
 import {useSearch, useSeconds} from '../hooks';
-import {buttonStyle} from "../components/Buttons";
+import {buttonStyle, invertedButtonStyle} from '../components/Buttons';
+import {compose, even} from 'sanctuary';
 
 const getStep = n => props => {
 	const maybeDesc = stepVarieties[process.env.REACT_APP_TECHNIQUE][n - 1];
@@ -29,18 +30,36 @@ export const getUrls = step => props => {
 
 const showTimer = process.env.REACT_APP_TECHNIQUE !== 'Eldric';
 
+const shouldAlert = alertAt => current =>
+	(alertAt.step === current.step) && (alertAt.seconds < current.seconds);
+
+const replace = what => replacement => s => s.replace(what, replacement);
+const parseUrlJson = compose (JSON.parse) (replace (/%22/g) ('"'));
+
 const Timer = props => {
-	const {seconds, pause, start, isRunning} = useSeconds();
-	const handleClickTimer = _ => {
-		if (isRunning) pause();
-		start();
+	const {alertAt, step} = useSearch();
+	const alertData = alertAt ? parseUrlJson(alertAt) : undefined;
+	const {seconds, pause, start, isRunning, rawSeconds, minutes} = useSeconds();
+	const show =
+		(alertData?.seconds > 60 && minutes) ? `${minutes}:${rawSeconds}` : seconds;
+	const alerting = 
+		alertData ? shouldAlert (alertData) ({step: parseInt(step), seconds}) : false;
+	const handleClickTimer = isRunning ? pause : start;
+	const text = alerting ? 'times up!'
+		: (isRunning || seconds) ? show 
+		: 'start timer'
+	const style = {
+		padding: 10,
+		fontSize: '1em',
+		textTransform: 'uppercase',
+		borderStyle: 'none',
+		width: '10em',
+		...(alerting && even(seconds) ? invertedButtonStyle : buttonStyle),
 	};
 	return (
-		<div style={buttonStyle}>
-			<Button onClick={handleClickTimer}>
-				{isRunning || seconds ? seconds : 'start timer'}
-			</Button>
-		</div>
+		<button style={style} onClick={handleClickTimer} >
+			{text}
+		</button>
 	);
 };
 
