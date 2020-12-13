@@ -40,4 +40,13 @@ const Eldric = [
 	'add some of the first extraction to the second, to taste (around 5.5g)'
 ];
 
-export const stepVarieties = { Hoffmann, Eldric };
+const FrenchPress = [
+	'get your french press, and heat your water',
+	({coffee}) => `grind ${coffee}g of coffee around medium`,
+	({water}) => `pour ${water}g of water over the coffee; start timer`,
+	'after 4 minutes, stir the crust overtop the coffee, then scoop off the foam',
+	'wait for 5 minutes',
+	'plunge down just down to the surface of the liquid'
+];
+
+export const stepVarieties = { Hoffmann, Eldric, FrenchPress };

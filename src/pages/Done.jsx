@@ -68,7 +68,7 @@ const Eldric = props => {
 };
 
 const pages = {
-	Hoffmann, Eldric
+	Hoffmann, Eldric, FrenchPress: Hoffmann
 };
 
 export const Done = pages[process.env.REACT_APP_TECHNIQUE];

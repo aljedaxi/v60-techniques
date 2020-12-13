@@ -7,6 +7,7 @@ buildApp() {
 	case $technique in
 		"Eldric") echo "eldric-v60.surge.sh" > './CNAME';;
 		"Hoffmann") echo "hoffmann-v60.surge.sh" > './CNAME';;
+		"FrenchPress") echo "hoffmann-french-press.surge.sh" > './CNAME';;
 	esac
 	echo "\n" | surge
 	popd
@@ -15,7 +16,7 @@ buildApp() {
 command=$1
 if [ $command = "all" ]
 then
-	for techne in Hoffmann Eldric
+	for techne in Hoffmann Eldric FrenchPress
 	do
 		buildApp $techne
 	done

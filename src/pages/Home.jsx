@@ -40,8 +40,25 @@ export const Eldric = props => {
 	)
 };
 
+const FrenchPress = props => {
+	const {coffeeToWater} = useRatio({water: 500, coffee: 30});
+	const [coffee, setCoffee] = useState(30);
+	const style = Object.assign({}, buttonStyle, {display: 'flex', flexDirection: 'row', padding: 10}, );
+	const {nextUrl} = getUrls (0) ({coffee, water: coffeeToWater(coffee)});
+	return (
+		<div>
+			<div style={style}>
+				using&nbsp;
+				<InputGrams style={{width: '3.5rem', fontFamily: 'Lotion'}} onChange={setty(setCoffee)} value={coffee}/>
+				&nbsp;of coffee
+			</div>
+			<ButtonLink to={nextUrl}>begin</ButtonLink>
+		</div>
+	)
+};
+
 const homes = {
-	Hoffmann, Eldric
+	Hoffmann, Eldric, FrenchPress
 };
 
 export const Home = homes[process.env.REACT_APP_TECHNIQUE];
