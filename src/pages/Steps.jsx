@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
-import {Redirect} from 'react-router-dom';
+import {useHotkeys} from 'react-hotkeys-hook';
+import {Redirect, useHistory} from 'react-router-dom';
 import {stepVarieties} from '../v60';
 import {Layout} from '../App';
 import {useSearch, useSeconds} from '../hooks';
-import {buttonStyle, invertedButtonStyle, Button} from '../components/Buttons';
+import {Button} from '../components/Buttons';
 import {compose, even} from 'sanctuary';
 
 const getStep = n => props => {
@@ -57,10 +58,19 @@ const Timer = props => {
 
 export const Step = props => {
 	const {step, ...rest} = useSearch();
+	const history = useHistory();
 	const [blooming, setBlooming] = useState(false);
 	const {nextUrl, lastUrl} = getUrls (step) (rest);
+	console.log('nextUrl', nextUrl);
 	const beginBlooming = _ => setBlooming(true);
 	const currentDesc = getStep (step) (rest);
+	const navigateNext = _ => history.push(nextUrl);
+	const backUp = _ => history.push(lastUrl);
+
+	useHotkeys('right', navigateNext, {}, [nextUrl]);
+	useHotkeys('left', backUp, {}, [lastUrl]);
+
+	if (step === '0') return <Redirect to='/'/>;
 	if (!currentDesc) return <Redirect to='/done'/>;
 	return (
 		<Layout next={nextUrl} from={lastUrl}>
