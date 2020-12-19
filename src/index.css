@@ -1,11 +1,10 @@
 @font-face {
-	font-family: 'Lotion';
-	src: local('Lotion') url('./Lotion.woff2'), format('woff2');
+	font-family: "Lotion";
+	src: local("Lotion"), url(./Lotion.woff2) format("woff2");
 }
 
 html, body, #root {
 	height: 100%;
 	margin: 0;
 	font-family: Lotion;
-	font-variant-ligatures: normal discretionary-ligatures;
 }
