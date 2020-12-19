@@ -6,10 +6,12 @@ import {
 	Link,
 } from 'react-router-dom';
 import './App.css';
-import {Home} from './pages/Home';
-import {Step} from './pages/Steps';
-import {Done} from './pages/Done';
+import {homes} from './pages/Home';
+import {steps} from './pages/Steps';
+import {dones} from './pages/Done';
 import {useOrientation} from './hooks';
+
+const {REACT_APP_TECHNIQUE: TECHNIQUE} = process.env;
 
 const mainStyle = {
 	background: 'black',
@@ -69,6 +71,9 @@ export const Layout = ({children, next, from}) => {
 }
 
 function App() {
+	const Home = homes[TECHNIQUE];
+	const Done = dones[TECHNIQUE];
+	const Step = steps[TECHNIQUE];
   return (
 		<Router>
 			<Switch>

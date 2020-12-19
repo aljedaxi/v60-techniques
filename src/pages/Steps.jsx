@@ -86,3 +86,5 @@ export const Step = props => {
 		</Layout>
 	);
 };
+
+export const steps = new Proxy({}, {get: () => Step});

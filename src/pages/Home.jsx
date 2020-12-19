@@ -88,8 +88,6 @@ const FrenchPress = props => {
 	)
 };
 
-const homes = {
+export const homes = {
 	Hoffmann, Eldric, FrenchPress
 };
-
-export const Home = homes[process.env.REACT_APP_TECHNIQUE];
