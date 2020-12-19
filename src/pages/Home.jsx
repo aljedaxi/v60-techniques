@@ -12,13 +12,13 @@ export const InputGrams = ({style, ...rest}) =>
 		<input style={{borderStyle: 'none', fontFamily: 'Lotion', fontSize: '1em', ...style}} type='number' {...rest}/> g
 	</div>;
 
-const Box = ({children, style, ...rest}) => 
+export const Box = ({children, style, ...rest}) => 
 	 <div style={Object.assign({}, buttonStyle, style)} {...rest}>
 		 {children}
 	</div>;
 
 export const Settings = props => {
-	const {coffeeToWater, waterToCoffee, coffee, setCoffee} = props;
+	const {coffee, setCoffee} = props;
 	const style = Object.assign({}, buttonStyle, {display: 'flex', flexDirection: 'row', padding: 10}, );
 	return (
 		<div style={style}>
@@ -39,7 +39,7 @@ export const Hoffmann = props => {
 	const [coffee, setCoffee] = useState(30);
 	const water = coffeeToWater(coffee);
 	const vid = "https://www.youtube.com/watch?v=AI4ynXzkSQo";
-	const {nextUrl} = getUrls (0) ({coffee, roast: 'light', water});
+	const {nextUrl} = getUrls (0) ({coffee, roast: 'light', water, ...props});
 	return (
 		<div style={containerStyle}>
 			<ButtonA to={vid}>
@@ -57,7 +57,7 @@ export const Eldric = props => {
 	const {coffeeToWater, waterToCoffee} = useRatio({water: 11, coffee: 1});
 	const [coffee, setCoffee] = useState(23);
 	const water = coffeeToWater(coffee);
-	const {nextUrl} = getUrls (0) ({coffee, water: coffeeToWater(coffee)});
+	const {nextUrl} = getUrls (0) ({coffee, water: coffeeToWater(coffee), ...props});
 	return (
 		<div>
 			<Settings {...{coffeeToWater, waterToCoffee, coffee, setCoffee}}/>
@@ -74,7 +74,8 @@ const FrenchPress = props => {
 	const vid = 'https://www.youtube.com/watch?v=st571DYYTR8';
 	const {nextUrl} = getUrls (0) ({
 		coffee, water, 
-		alertAt: JSON.stringify({seconds: 60 * 4, step: 4})
+		alertAt: JSON.stringify({seconds: 60 * 4, step: 4}),
+		...props,
 	});
 	return (
 		<div>

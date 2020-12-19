@@ -6,10 +6,12 @@ import {Layout} from '../App';
 import {useSearch, useSeconds} from '../hooks';
 import {Button} from '../components/Buttons';
 import {compose, even} from 'sanctuary';
+import {links} from './Done';
 
 const getStep = n => props => {
-	const maybeDesc = stepVarieties[process.env.REACT_APP_TECHNIQUE][n - 1];
-	return typeof maybeDesc === 'function' ? maybeDesc (props) : maybeDesc;
+	const {technique, ...stepProps} = props;
+	const maybeDesc = stepVarieties[technique][n - 1];
+	return typeof maybeDesc === 'function' ? maybeDesc (stepProps) : maybeDesc;
 };
 
 const containerStyle = {
@@ -20,11 +22,12 @@ const containerStyle = {
 };
 
 export const getUrls = step => props => {
+	const {base, ...urlProps} = props;
 	const stepN = parseInt(step);
-	const queryString = Object.entries(props).reduce((acc, [k,v]) => `${acc}&${k}=${v}`, '');
+	const queryString = Object.entries(urlProps).reduce((acc, [k,v]) => `${acc}&${k}=${v}`, '');
 	return {
-		nextUrl: `/step?step=${stepN+1}${queryString}`,
-		lastUrl: `/step?step=${stepN-1}${queryString}`,
+		nextUrl: `${base}/step?step=${stepN+1}${queryString}`,
+		lastUrl: `${base}/step?step=${stepN-1}${queryString}`,
 	}
 };
 
@@ -60,18 +63,19 @@ export const Step = props => {
 	const {step, ...rest} = useSearch();
 	const history = useHistory();
 	const [blooming, setBlooming] = useState(false);
-	const {nextUrl, lastUrl} = getUrls (step) (rest);
-	console.log('nextUrl', nextUrl);
 	const beginBlooming = _ => setBlooming(true);
-	const currentDesc = getStep (step) (rest);
+
+	const {home, done} = links (props);
+	const {nextUrl, lastUrl} = getUrls (step) ({...rest, ...props});
 	const navigateNext = _ => history.push(nextUrl);
 	const backUp = _ => history.push(lastUrl);
 
 	useHotkeys('right', navigateNext, {}, [nextUrl]);
 	useHotkeys('left', backUp, {}, [lastUrl]);
 
-	if (step === '0') return <Redirect to='/'/>;
-	if (!currentDesc) return <Redirect to='/done'/>;
+	const currentDesc = getStep (step) ({...rest, ...props});
+	if (step === '0') return <Redirect to={home}/>;
+	if (!currentDesc) return <Redirect to={done}/>;
 	return (
 		<Layout next={nextUrl} from={lastUrl}>
 			{blooming ? <iframe style={{position: 'fixed', left: 69, top: 69}} src="https://www.youtube.com/embed/IxBQ8Er8DYc" frameBorder="0" allow="autoplay" title='bloom'/> : null}

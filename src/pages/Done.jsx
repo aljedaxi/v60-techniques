@@ -9,6 +9,17 @@ const buttonStyle = {
 	display: 'grid', placeItems: 'center'
 };
 
+export const links = props => {
+	const {base} = props;
+	const home = `${base}/`;
+	const done = `${base}/done`;
+	return {
+		restart: home,
+		home,
+		done,
+	};
+};
+
 const Common = props => {
 	const {children, text} = props;
 	return (
@@ -24,6 +35,7 @@ const Common = props => {
 }
 
 const Hoffmann = props => {
+	const {restart} = links(props);
   return (
   	<Common
 			text={
@@ -34,7 +46,7 @@ const Hoffmann = props => {
 				</div>
 			}
 		>
-			<ButtonLink to='/'>
+			<ButtonLink to={restart}>
 				restart
 			</ButtonLink>
 			<ButtonA to='https://github.com/aljedaxi/hoffmann-v60/issues'>
@@ -49,6 +61,7 @@ const Hoffmann = props => {
 };
 
 const Eldric = props => {
+	const {restart} = links(props);
 	return (
 		<Common
 			text={
@@ -57,7 +70,7 @@ const Eldric = props => {
 				</div>
 			}
 		>
-			<ButtonLink to='/'>
+			<ButtonLink to={restart}>
 				restart
 			</ButtonLink>
 			<ButtonA to='https://github.com/aljedaxi/hoffmann-v60/issues'>

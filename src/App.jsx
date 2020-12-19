@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {map, fst, filter, pairs} from 'sanctuary';
 import {
 	BrowserRouter as Router,
 	Switch,
@@ -10,8 +11,11 @@ import {homes} from './pages/Home';
 import {steps} from './pages/Steps';
 import {dones} from './pages/Done';
 import {useOrientation} from './hooks';
+import {meta} from './meta';
+import {ButtonLink} from './components/Buttons';
 
 const {REACT_APP_TECHNIQUE: TECHNIQUE} = process.env;
+const techniqueNames = map (fst) (pairs (meta));
 
 const mainStyle = {
 	background: 'black',
@@ -70,29 +74,60 @@ export const Layout = ({children, next, from}) => {
 		: <Basic>{children}</Basic>;
 }
 
-function App() {
-	const Home = homes[TECHNIQUE];
-	const Done = dones[TECHNIQUE];
-	const Step = steps[TECHNIQUE];
+const fuck = t => 
+	<ButtonLink key={`${t}-link`} to={`/${t}`}>{t}</ButtonLink>;
+const Meta = _ => (
+	<Layout>
+		{
+			map (fuck) (filter (t => t !== 'Index') (techniqueNames))
+		}
+	</Layout>
+)
+
+const convertIndexBack = s => s === '/' ? 'Index' : s;
+const AppProper = ({technique, base}) => {
+	document.title = meta[convertIndexBack(technique)]?.title ?? 'coffee time';
+	if (technique === '/') return <Meta/>;
+	const Home = homes[technique];
+	const Done = dones[technique];
+	const Step = steps[technique];
   return (
-		<Router>
-			<Switch>
-				<Route path='/step'>
-					<Step/>
-				</Route>
-				<Route path='/done'>
-					<Layout>
-						<Done/>
-					</Layout>
-				</Route>
-				<Route path='/'>
-					<Layout>
-						<Home/>
-					</Layout>
-				</Route>
-			</Switch>
-		</Router>
+		<>
+			<Route path={`${base}/step`}>
+				<Step technique={technique} base={base}/>
+			</Route>
+			<Route path={`${base}/done`}>
+				<Layout>
+					<Done base={base}/>
+				</Layout>
+			</Route>
+			<Route path={`${base}/`}>
+				<Layout>
+					<Home base={base}/>
+				</Layout>
+			</Route>
+		</>
   );
 }
+
+const epic = t => <Route key={`${t}-route`} path={`/${t}`}><AppProper technique={t} base={`/${t}`}/></Route>;
+const Index = props => {
+	const techne = techniqueNames.map(t => t === 'Index' ? '/' : t);
+	return (
+		<Router>
+			<Switch>
+				{map (epic) (techne)}
+			</Switch>
+		</Router>
+	);
+};
+
+const App = () => TECHNIQUE === 'Index' 
+	? <Index />
+	: <Router>
+			<Switch>
+				<AppProper technique={TECHNIQUE} base={''}/>
+			</Switch>
+		</Router>
 
 export default App;
