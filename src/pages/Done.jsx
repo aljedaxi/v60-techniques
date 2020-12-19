@@ -50,7 +50,7 @@ const Hoffmann = props => {
 				restart
 			</ButtonLink>
 			<ButtonA to='https://github.com/aljedaxi/hoffmann-v60/issues'>
-				suggest improvements
+				suggestions
 			</ButtonA>
 			<ButtonA to='https://www.youtube.com/channel/UCMb0O2CdPBNi-QqPk5T3gsQ'>
 				more hoffmann
@@ -74,7 +74,7 @@ const Eldric = props => {
 				restart
 			</ButtonLink>
 			<ButtonA to='https://github.com/aljedaxi/hoffmann-v60/issues'>
-				suggest improvements
+				suggestions
 			</ButtonA>
 		</Common>
 	)
