@@ -6,7 +6,6 @@ import {
 	Route, 
 	Link,
 } from 'react-router-dom';
-import './App.css';
 import {homes} from './pages/Home';
 import {steps} from './pages/Steps';
 import {dones} from './pages/Done';
