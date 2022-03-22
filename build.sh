@@ -1,17 +1,23 @@
+buildAndDeploy() {
+	url=$1
+	yarn build
+	pushd build
+	echo $url > ./CNAME
+	echo "\n" | surge
+	popd
+}
+
 buildApp() {
 	technique=$1
 	echo "REACT_APP_TECHNIQUE=$technique" > .env.production
 	cp $technique.ico public/favicon.ico
-	yarn build
-	pushd build
 	case $technique in
-		"Eldric") echo "eldric-v60.surge.sh" > './CNAME';;
-		"Hoffmann") echo "hoffmann-v60.surge.sh" > './CNAME';;
-		"FrenchPress") echo "hoffmann-french-press.surge.sh" > './CNAME';;
-		"Index") echo "coffee-recipes.surge.sh" > './CNAME';;
+		"Eldric")      url="eldric-v60.surge.sh";;
+		"Hoffmann")    url="hoffmann-v60.surge.sh";;
+		"FrenchPress") url="hoffmann-french-press.surge.sh";;
+		"Index")       url="coffee-recipes.surge.sh";;
 	esac
-	echo "\n" | surge
-	popd
+	buildAndDeploy $url
 }
 
 command=$1
